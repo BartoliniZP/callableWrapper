@@ -18,5 +18,5 @@ template <unsigned l, typename Callable> decltype(auto) callableWrapper(Callable
 	return [](auto... args) -> decltype(auto) {return callableHolder<l, std::decay_t<Callable>>.value()(std::forward<decltype(args)>(args)...); }; 
 }
 
-#define wrapper(callable) callableWrapper<__LINE__>(callable) //limitation: cannot create two or more wrappers of same type callables in one line
+#define wrapper(...) callableWrapper<__LINE__>(__VA_ARGS__) //limitation: cannot create two or more wrappers of same type callables in one line
 #endif
